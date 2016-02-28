@@ -1,0 +1,15 @@
+<header>
+  <md-toolbar>
+    <h2 class="md-toolbar-tools" layout="row" layout-align="space-between">
+      <a ui-sref="home.room({roomName : 'general'})">Chat</a>
+      <md-button ng-click="vm.auth.signIn()" ng-show="vm.auth.isAnonymous" layout="row" layout-align="center center" layout-margin>
+        <span flex>Signin</span>
+        <md-icon flex md-svg-src="app/images/github.svg"></md-icon>
+      </md-button>
+      <span ng-hide="vm.auth.isAnonymous">
+        <span>{{vm.auth.username}}</span>
+        <md-button ng-click="vm.auth.signOut()" ng-hide="vm.auth.isAnonymous">Signout</md-button>
+      </span>
+    </h2>
+  </md-toolbar>
+</header>

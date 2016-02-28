@@ -1,0 +1,60 @@
+<md-toolbar class="md-accent">
+  <h2 class="md-toolbar-tools" layout="row" layout-align="space-between">
+    <span>
+      <md-button aria-label="Toggle Menu" hide-gt-md ng-click="vm.toggleRoomsSidenav()">
+        <md-icon md-svg-src="app/images/menu.svg"></md-icon>
+      </md-button>
+    </span>
+    <span layout="row" layout-align="center center">
+      <span>{{vm.roomName}}</span>
+      <md-button class="mar-lef-10" ng-if="vm.isOwner()" ng-click="vm.deleteRoomDialog($event)" tabindex="-1" aria-label="Delete this room">
+        <md-tooltip>
+          Delete this room
+        </md-tooltip>
+        <md-icon md-svg-src="app/images/delete.svg"></md-icon>
+      </md-button>
+    </span>
+    <span title="Users in this room">
+      {{vm.roomUsers.length}}<md-icon class="mar-lef-5" md-svg-src="app/images/account-multiple.svg">
+    </md-icon>
+    </span>
+  </h2>
+</md-toolbar>
+<md-content md-scroll-y class="md-padding" style="height: 330px">
+  <div layout="row" class="w-100">
+    <md-button ng-hide="vm.messages.length < (vm.page * vm.pageSize)" flex ng-click="vm.showOlder()">
+      Show older
+    </md-button>
+  </div>
+  <div ng-repeat="msg in vm.messages" layout="column" class="mar-ver-5">
+    <div layout="row" layout-align="start center">
+      <b>{{msg.username || '[anonymous]'}}</b>
+      <small class="pad-lef-5"></small>
+    </div>
+    <div>{{msg.message}}</div>
+  </div>
+</md-content>
+<md-content class="md-padding" layout="column" novalidate>
+  <form name="vm.messageForm" ng-submit="vm.sendMessage(vm.messageForm)">
+    <md-input-container class="md-block">
+      <label>Message</label>
+      <input tabindex="1"
+             autofocus
+             ng-model="vm.newMessageText"
+             ng-maxlength="500"
+             name="newMessageText"/>
+
+      <div ng-if="vm.messageForm.newMessageText.$dirty" ng-messages="vm.messageForm.newMessageText.$error">
+        <div ng-message="maxlength">Message can be up to 500 characters long</div>
+      </div>
+    </md-input-container>
+    <div layout="row" layout-align="end">
+      <md-button tabindex="2"
+                 class="md-primary"
+                 role="submit"
+                 type="submit"
+                 ng-disabled="vm.messageForm.$invalid || !vm.newMessageText">Send
+      </md-button>
+    </div>
+  </form>
+</md-content>

@@ -1,0 +1,9 @@
+{
+  "firebase": "https://dazzling-torch-5503.firebaseio.com/",
+  "public": "dist",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
